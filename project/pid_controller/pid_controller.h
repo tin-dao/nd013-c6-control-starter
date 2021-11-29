@@ -7,6 +7,9 @@
 #ifndef PID_CONTROLLER_H
 #define PID_CONTROLLER_H
 
+// Value to handle divide by 0.
+#define DBL_EPSILON 1e-9
+
 class PID {
 public:
 
@@ -17,18 +20,27 @@ public:
     /*
     * Errors
     */
+   double prev_cte; 
+   double diff_cte;
+   double int_cte;
 
     /*
     * Coefficients
     */
+   double kP;
+   double kI;
+   double kD;
 
     /*
     * Output limits
     */
+   double output_min;
+   double output_max;
   
     /*
     * Delta time
     */
+   double delta_time;
 
     /*
     * Constructor
