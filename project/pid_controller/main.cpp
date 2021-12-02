@@ -199,12 +199,12 @@ void set_obst(vector<double> x_points, vector<double> y_points, vector<State>& o
 int main (int argc, char **argv)
 {
   
-  double steer_P =  50.0;
-  double steer_I = 0.0;
-  double steer_D = 0.0;
-  double throttle_P =  0.5;
-  double throttle_I = 0.0;
-  double throttle_D = 0.0;
+  double steer_P =  0.1;
+  double steer_I = 0.0005;
+  double steer_D = 0.15;
+  double throttle_P =  0.2;
+  double throttle_I = 0.001;
+  double throttle_D = 0.1;
 
   if (argc > 6) {
     steer_P = std::stod(argv[1]);
@@ -321,11 +321,7 @@ int main (int argc, char **argv)
           /**
           * TODO (step 3): compute the steer error (error_steer) from the position and the desired trajectory
           **/
-          error_steer = 0;
-          // Get angle from 2 last points
-          double desired_yaw = angle_between_points(x_points[x_points.size()-2], y_points[y_points.size()-2],
-                                            x_points[x_points.size()-1], y_points[y_points.size()-1]);
-          error_steer = desired_yaw - yaw;
+          error_steer = 5 * (y_position - y_points[0]);
 
           /**
           * TODO (step 3): uncomment these lines
@@ -360,7 +356,7 @@ int main (int argc, char **argv)
           **/
           // modify the following line for step 2
           // error_throttle = expect_velocity - current_velocity 
-          error_throttle = v_points.back() - velocity;
+          error_throttle = velocity - v_points.back();
 
           double throttle_output;
           double brake_output;
